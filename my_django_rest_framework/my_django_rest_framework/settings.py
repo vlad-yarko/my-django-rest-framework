@@ -38,7 +38,10 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     "rest_framework",
-    "drf"
+    # "rest_framework.authtoken"
+    "drf",
+    "my_drf",
+    "drf_yasg"
 ]
 
 MIDDLEWARE = [
@@ -74,10 +77,16 @@ WSGI_APPLICATION = 'my_django_rest_framework.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
+from .config import settings
+
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': settings.POSTGRES_DB,       # your database name
+        'USER': settings.POSTGRES_USER,           # your postgres username
+        'PASSWORD': settings.POSTGRES_PASSWORD,   # your postgres password
+        'HOST': settings.POSTGRES_HOST,        # usually localhost
+        'PORT': settings.POSTGRES_PORT,             # default postgres port
     }
 }
 
@@ -122,3 +131,8 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# REST_FRAMEWORK = {
+#     # Make sure this is set
+#     'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
+# }

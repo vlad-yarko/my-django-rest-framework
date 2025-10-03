@@ -1,0 +1,53 @@
+version: "3.9"
+
+
+services:
+  django:
+    build:
+      # context: ./my_django_rest_framework
+      context: .
+      dockerfile: my_django_rest_framework/Dockerfile.django
+      args:
+        PYTHON_VERSION: "3.11-slim"
+      target: dev
+    container_name: django-app
+    ports:
+      - 8000:8000
+    networks:
+      - django
+    volumes:
+      # - type: bind
+      #   source: .venv
+      #   target: /app/.venv
+      # - type: volume
+      #   target: /app/.venv
+      - type: bind
+        # source: ./my_django_rest_framework
+        source: .
+        target: /app
+      # - type: volume
+      #   target: /app/.venv
+    depends_on:
+      - db
+    environment:
+      - UV_LINK_MODE=copy
+    env_file:
+      - .env
+
+  db:
+    image: postgres:15.1-alpine
+    volumes:
+      - database_data:/var/lib/postgresql/data
+    networks:
+      - django
+    ports:
+      - 5432:5432
+    env_file:
+      - .env
+
+
+volumes:
+  database_data:
+
+networks:
+  django:
