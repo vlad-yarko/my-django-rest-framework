@@ -16,17 +16,9 @@ services:
     networks:
       - django
     volumes:
-      # - type: bind
-      #   source: .venv
-      #   target: /app/.venv
-      # - type: volume
-      #   target: /app/.venv
       - type: bind
-        # source: ./my_django_rest_framework
         source: .
         target: /app
-      # - type: volume
-      #   target: /app/.venv
     depends_on:
       - db
     environment:

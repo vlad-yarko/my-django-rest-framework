@@ -38,14 +38,16 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     "rest_framework",
+    "django_filters",
     # "rest_framework.authtoken"
     "drf",
     "my_drf",
     "drf_yasg",
-    "users",
+    "homework"
+    # "users",
 ]
 
-AUTH_USER_MODEL = "users.CustomUser"
+# AUTH_USER_MODEL = "users.CustomUser"
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',

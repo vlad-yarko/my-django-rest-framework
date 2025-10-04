@@ -1,21 +1,15 @@
 ARG PYTHON_VERSION=3.11-slim
-# ARG UV_PYTHON_VERSION=3.11
-
 
 ###
 FROM python:${PYTHON_VERSION} AS base
+
 
 LABEL maintainer="vlad-yarko"
 LABEL org.opencontainers.image.source="https://github.com/vlad-yarko/my-django-rest-framework"
 LABEL org.opencontainers.image.description=Django
 
-RUN useradd -m django
 
-# ENV UV_PYTHON=${UV_PYTHON_VERSION}
-
-# COPY --chown=django --from=ghcr.io/astral-sh/uv:latest /uv /uvx /bin/
-
-# Install necessary tools for uv and Python installation
+# Install necessary tools for uv and Python installatix`on
 RUN apt-get update && apt-get install -y --no-install-recommends \
     curl ca-certificates build-essential libssl-dev zlib1g-dev libbz2-dev \
     libreadline-dev libsqlite3-dev libncursesw5-dev xz-utils tk-dev libxml2-dev \
@@ -28,13 +22,15 @@ ENV PATH="/root/.local/bin/:$PATH"
 
 WORKDIR /app
 
-COPY --chown=django pyproject.toml .
+# COPY --chown=django pyproject.toml .
+# COPY --chown=vladyslav:vladyslav pyproject.toml .
+COPY pyproject.toml .
 
 
 ###
 FROM base AS dev
 
-USER root
+# USER root
 RUN apt-get update && apt-get install -y \
     gcc \
     libpq-dev \
@@ -48,14 +44,15 @@ RUN uv venv --python 3.11
 
 RUN uv sync --python 3.11
 
-COPY --chown=django . .
-
-# RUN uv run python my_django_rest_framework/manage.py migrate # You do not need to run migrations in the image
+# COPY --chown=django . .
+# COPY --chown=vladyslav:vladyslav . .
+COPY . .
 
 EXPOSE 8000
 
 # USER django
-USER root
+# USER root
+# USER devuser
 
 ENTRYPOINT [ "uv", "run", "python" ]
 CMD [ "my_django_rest_framework/manage.py", "runserver", "0.0.0.0:8000" ]

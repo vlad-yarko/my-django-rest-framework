@@ -39,6 +39,7 @@ schema_view = swagger_get_schema_view(
     
 urlpatterns = [
     path("my-drf/", include("my_drf.urls")),
+    path("homework/", include("homework.urls")),
     path('admin/', admin.site.urls),
     
     path("docs/", schema_view.with_ui('swagger', cache_timeout=0), name="docs"),

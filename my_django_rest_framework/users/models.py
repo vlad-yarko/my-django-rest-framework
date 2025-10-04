@@ -19,6 +19,14 @@ class CustomUser(AbstractUser):
     is_available = models.BooleanField(default=True, verbose_name="Доступний для роботи")
     phone = models.CharField(max_length=20, blank=True, verbose_name="Номер телефону")
     
+    specialization = models.CharField(max_length=50)
+    years_experience = models.PositiveIntegerField()
+    preferred_tech_stack = models.TextField()
+    salary_expectation = models.DecimalField()
+    remote_work_preferred = models.BooleanField()
+    portfolio_url = models.URLField()
+    
+    
     def __str__(self):
         return self.email
 
