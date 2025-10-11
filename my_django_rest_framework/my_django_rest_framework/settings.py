@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     "drf_yasg",
     # "homework"
     "users",
+    # "signals_practice"
 ]
 
 AUTH_USER_MODEL = "users.CustomUser"

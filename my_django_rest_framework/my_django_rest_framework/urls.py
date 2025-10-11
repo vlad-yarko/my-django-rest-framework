@@ -41,7 +41,8 @@ urlpatterns = [
     # path("my-drf/", include("my_drf.urls")),
     # path("homework/", include("homework.urls")),
     path('admin/', admin.site.urls),
-    path("users/", include("users.urls")),
+    path("vasya/", include("users.urls")),
+    # path("signals_practice/", "signals_practice.urls")
     
     path("docs/", schema_view.with_ui('swagger', cache_timeout=0), name="docs"),
     path('redoc/', schema_view.with_ui('redoc', cache_timeout=0), name='redoc')
